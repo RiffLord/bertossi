@@ -26,7 +26,5 @@ int main(void) {
     printf("\n%s%d\n\n","The smallest element is ", min(b, bsize));
     printf("\n%s%d\n\n","Recursively calculating the smallest element: ", recurmin(b, 0, bsize - 1));
 
-    puts("After adding launch.json file.");
-
     return 0;
 }

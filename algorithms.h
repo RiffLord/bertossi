@@ -29,7 +29,7 @@ int min(int a[], int size) {
 
     //  Consider the first item. If the next item is smaller, assign it to @var m.
     int m = a[0];
-    for (int i = 1; i < size; i++) {
+    for (size_t i = 1; i < size; i++) {
         if (a[i] < m)
             m = a[i];
     }
