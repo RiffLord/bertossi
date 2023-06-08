@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <stddef.h>
 #include <stdbool.h>
+#include "datastructures.h"
 
 /**
  * @brief       Basic iterative algorithm for finding the minimum element of an array.
@@ -243,4 +244,39 @@ void sortItalianFlagColours(char *colours[], unsigned int size) {
             }
         }
     }
+}
+
+/**
+ * @brief       Orders the contents of an array of colours to correspond to those of the Italian flag.
+ *
+ * @details     Uses several counters to keep track of the colours and their respective positions within
+ *              the array, switching them whenever two colours are found to be in the wrong positions.
+ *
+ * @param c     Array to sort
+ * @param size  Size of the array
+ */
+void sortItalianFlagColours2(colours c[], unsigned int size) {
+    //  TODO: study and comment this code.
+    int i, j, k;
+    colours temp;
+    k = 1;
+    j = size;
+    while (k <= size && c[k] == green) k++;
+    while (j >= 0 && c[j] == red) j--;
+    i = k;
+    while (i <= j) {
+        if (c[i] == red) {
+            temp = c[i];
+            c[i] = c[j];
+            c[j] = temp;
+            j--;
+        } else if (c[i] == green) {
+            temp = c[k];
+            c[k] = c[i];
+            c[i] = temp;
+            k++;
+        }
+        if (c[i] == white) i++;
+    }
+
 }
