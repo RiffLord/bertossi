@@ -1,7 +1,7 @@
 /**
  * @file    datastructures.h
  * @author  Bruno Pezer
- * @brief
+ * @brief   Data structures and auxiliary entities from Alan Bertossi's "Algoritmi e strutture di dati".
  * @version 0.1
  * @date    2023-06-08
  *
