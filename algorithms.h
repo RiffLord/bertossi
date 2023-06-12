@@ -225,22 +225,22 @@ void printPowers2(int n, int e) {
  *                  items, progressively switching their positions if the
  *                  second examined item should be placed before the current one.
  *
- * @param colours   Array of strings (char pointers). The only valid values are "green", "white" and "red".
+ * @param colours   Array of enums representing the three colours (green, white & red).
  * @param size      Array size
  *
  * @author          Bruno Pezer
  */
-void sortItalianFlagColours(char *colours[], unsigned int size) {
+void sortItalianFlagColours(colours c[], unsigned int size) {
     //  Compare each item of the array with the remaining items.
     for (size_t i = 0; i < size; i++) {
         for (size_t j = i + 1; j < size; j++) {
             //  If the currently examined item is "red" and the second one isn't, or the
             //  currently examined item is "white" and the second one is "green",
             //  switch them with the help of a holder variable.
-            if ((colours[i] == "red" && colours[j] != "red") || (colours[i] == "white" && colours[j] == "green")) {
-                char *temp = colours[i];
-                colours[i] = colours[j];
-                colours[j] = temp;
+            if ((c[i] == red && c[j] != red) || (c[i] == white && c[j] == green)) {
+                colours temp = c[i];
+                c[i] = c[j];
+                c[j] = temp;
             }
         }
     }
@@ -256,27 +256,38 @@ void sortItalianFlagColours(char *colours[], unsigned int size) {
  * @param size  Size of the array
  */
 void sortItalianFlagColours2(colours c[], unsigned int size) {
-    //  TODO: study and comment this code.
-    int i, j, k;
+    int w, r, g;
     colours temp;
-    k = 1;
-    j = size;
-    while (k <= size && c[k] == green) k++;
-    while (j >= 0 && c[j] == red) j--;
-    i = k;
-    while (i <= j) {
-        if (c[i] == red) {
-            temp = c[i];
-            c[i] = c[j];
-            c[j] = temp;
-            j--;
-        } else if (c[i] == green) {
-            temp = c[k];
-            c[k] = c[i];
-            c[i] = temp;
-            k++;
-        }
-        if (c[i] == white) i++;
+    g = 0;      // The counter for green items is set to the start of the array
+    r = size - 1;   // The counter for red items is set to the end of the array
+
+    // Increment the green counter until a different colour is found.
+    while (g <= size && c[g] == green) {
+        g++;
+        printf("%d", c[g]);
     }
 
+    // Decrement the red counter until a different colour is found.
+    while (r >= 0 && c[r] == red) r--;
+    w = g;  // The counter for swapping colours is set to the position of the first non-green colour found previously.
+
+    // Iterates through the array until the position of the first non-red item found previously is reached.
+    while (w <= r) {
+        // Swaps the colours based on the following rules:
+        //  - red should be moved towards the end of the array.
+        //  - green should be moved towards the start of the array.
+        //  - white should remain in its current position.
+        if (c[w] == red) {
+            temp = c[w];
+            c[w] = c[r];
+            c[r] = temp;
+            r--;
+        } else if (c[w] == green) {
+            temp = c[g];
+            c[g] = c[w];
+            c[w] = temp;
+            g++;
+        }
+        if (c[w] == white) w++;
+    }
 }
